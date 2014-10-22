@@ -7,6 +7,10 @@ module.exports = {
 
     index: function (req, res) {
 
-        res.view();
+        Post.find({}, function(err, list) {
+            res.view({
+                posts: list
+            });
+        });
     }
 };

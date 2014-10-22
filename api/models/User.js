@@ -22,6 +22,10 @@ module.exports = {
             via: 'members',
             dominant: true
         },
+        admin: {
+            type: 'boolean',
+            defaultsTo: false
+        },
 
         //Override toJSON method to remove password from API
         toJSON: function() {

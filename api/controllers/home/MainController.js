@@ -8,5 +8,10 @@ module.exports = {
     index: function (req, res) {
 
         res.view();
+    },
+
+    timeline: function (req, res) {
+
+        res.view();
     }
 };
