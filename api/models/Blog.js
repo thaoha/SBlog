@@ -11,11 +11,6 @@ module.exports = {
             minLength: 5,
             maxLength: 50
         },
-        slug: {
-            type: 'string',
-            required: true,
-            unique: true
-        },
         description: {
             type: 'string'
         },

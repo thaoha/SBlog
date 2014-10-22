@@ -1,7 +1,7 @@
 {% extends '../layout.swig' %}
 
 {% block styles %}
-    <link rel="stylesheet" href="/styles/signin.css">
+    <link rel="stylesheet" href="/home/styles/signin.css">
 {% endblock %}
 
 {% block body %}

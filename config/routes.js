@@ -36,11 +36,9 @@ module.exports.routes = {
     view: 'home/main/index'
   },
 
-  '/admin': {
-      view: 'admin/main/index'
-  },
+  '/admin': { controller: 'admin/MainController', action: 'index' },
 
-    /***************************************************************************
+  /***************************************************************************
   *                                                                          *
   * Custom routes here...                                                    *
   *                                                                          *
@@ -54,6 +52,6 @@ module.exports.routes = {
   'post /login': 'AuthController.process',
   'get /logout': 'AuthController.logout',
 
-  'get /timeline': { controller: 'home/MainController', action: 'timeline' }
+  'get /tl/:username': { controller: 'home/MainController', action: 'timeline' }
 
 };

@@ -31,6 +31,6 @@ module.exports.policies = {
   ***************************************************************************/
 
   'admin/MainController': {
-    '*': 'isLoggedIn'
+    '*': 'isAdmin'
   }
 };

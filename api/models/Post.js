@@ -25,6 +25,9 @@ module.exports = {
         user: {
             model: 'user'
         },
+        blog: {
+            model: 'blog'
+        },
         published: {
             type: 'boolean',
             defaultsTo: false

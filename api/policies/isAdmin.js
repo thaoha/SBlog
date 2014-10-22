@@ -4,7 +4,9 @@
  */
 
 module.exports = function(req, res, next) {
-    if (req.isAuthenticated()) {
+    var isAdmin = req.user.admin || false;
+
+    if (req.isAuthenticated() && isAdmin) {
         return next();
     } else {
         return res.redirect('/login');
