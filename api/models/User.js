@@ -2,12 +2,17 @@ var bcrypt = require('bcryptjs');
 
 module.exports = {
     attributes: {
-        username: {
+        name: {
+            type: 'string',
+            required: true,
+            minLength: 3,
+            maxLength: 20
+        },
+        email: {
             type: 'string',
             required: true,
             unique: true,
-            minLength: 3,
-            maxLength: 20
+            email: true
         },
         password: {
             type: 'string',
@@ -37,16 +42,21 @@ module.exports = {
         }
     },
 
-    beforeCreate: function(user, cb) {
-        bcrypt.genSalt(10, function(err, salt) {
-            bcrypt.hash(user.password, salt, function(err, hash) {
-                if (err) {
-                    console.log(err);
-                    cb(err);
-                } else {
-                    user.password = hash;
-                    cb(null, user);
-                }
+    beforeCreate: function(user, next) {
+        // check exist email
+        User.findOne({email: user.email}, function(err, data) {
+            if (err) return next(err);
+            if (data) return next(new Error('Email was already exist'));
+
+            bcrypt.genSalt(10, function(err, salt) {
+                bcrypt.hash(user.password, salt, function(err, hash) {
+                    if (err) {
+                        next(err);
+                    } else {
+                        user.password = hash;
+                        next(null, user);
+                    }
+                });
             });
         });
     }

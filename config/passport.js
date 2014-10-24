@@ -12,20 +12,23 @@ passport.deserializeUser(function(id, done) {
     });
 });
 
-passport.use(new LocalStrategy(
-    function(username, password, done) {
-        User.findOne({username: username}).exec(function(err, user) {
+passport.use(new LocalStrategy({
+        usernameField: 'email',
+        passwordField: 'password'
+    },
+    function(email, password, done) {
+        User.findOne({email: email}).exec(function(err, user) {
             if (err) { return done(null, err); }
             if (!user || user.length < 1) {
-                return done(null, false, { message: 'Incorrect User'});
+                return done(null, false, {message: 'Incorrect User'});
             }
             bcrypt.compare(password, user.password, function(err, res) {
-                if (!res) return done(null, false, { message: 'Invalid Password'});
+                if (!res) return done(null, false, {message: 'Invalid Password'});
                 return done(null, user);
             });
         });
-    })
-);
+    }
+));
 
 module.exports = {
     express: {

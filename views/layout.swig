@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>App</title>
+    <title>127.0.0.1</title>
 
     <!-- Viewport mobile tag for sensible mobile support -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -19,10 +19,13 @@
     <!--PLUGINS-->
     <script src="/plugins/jquery-1.11.0.min.js"></script>
     <script src="/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/plugins/jquery.form.min.js"></script>
+    <script src="/plugins/spin.min.js"></script>
     <!--PLUGINS END-->
 
     <!--SCRIPTS-->
     <script src="/js/dependencies/sails.io.js"></script>
+    <script src="/plugins/mainGlobal.js"></script>
     <!--SCRIPTS END-->
 
     {% block scripts %}{% endblock %}

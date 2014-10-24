@@ -23,35 +23,24 @@
 module.exports.routes = {
 
   /***************************************************************************
-  *                                                                          *
-  * Make the view located at `views/homepage.ejs` (or `views/homepage.jade`, *
-  * etc. depending on your default view engine) your home page.              *
-  *                                                                          *
-  * (Alternatively, remove this and add an `index.html` file in your         *
-  * `assets` directory)                                                      *
-  *                                                                          *
+  *                              Home Area                                   *
   ***************************************************************************/
 
-  '/': {
-    view: 'home/main/index'
-  },
+  '/': { controller: 'home/MainController', action: 'index' },
 
-  '/admin': { controller: 'admin/MainController', action: 'index' },
+  '/login': { controller: 'home/UserController', action: 'login' },
+  '/logout': { controller: 'home/UserController', action: 'logout'},
+  '/signup': { controller: 'home/UserController', action: 'signup'},
+
+  'get /tl/:username': { controller: 'home/MainController', action: 'timeline' },
 
   /***************************************************************************
-  *                                                                          *
-  * Custom routes here...                                                    *
-  *                                                                          *
-  *  If a request to a URL doesn't match any of the custom routes above, it  *
-  * is matched against Sails route blueprints. See `config/blueprints.js`    *
-  * for configuration options and examples.                                  *
-  *                                                                          *
+  *                             Admin area                                   *
   ***************************************************************************/
 
-  'get /login': 'AuthController.login',
-  'post /login': 'AuthController.process',
-  'get /logout': 'AuthController.logout',
+  'get /admin': { controller: 'admin/MainController', action: 'index' },
 
-  'get /tl/:username': { controller: 'home/MainController', action: 'timeline' }
+  '/admin/login': { controller: 'admin/UserController', action: 'login' },
+  '/admin/logout': { controller: 'admin/UserController', action: 'logout' }
 
 };

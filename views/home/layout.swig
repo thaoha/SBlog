@@ -11,5 +11,6 @@
 {% endblock %}
 
 {% block scripts %}
-
+    {% parent %}
+    <script src="/home/js/homeGlobal.js" type="text/javascript"></script>
 {% endblock %}

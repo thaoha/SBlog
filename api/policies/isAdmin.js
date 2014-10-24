@@ -4,11 +4,10 @@
  */
 
 module.exports = function(req, res, next) {
-    var isAdmin = req.user.admin || false;
 
-    if (req.isAuthenticated() && isAdmin) {
+    if (req.isAuthenticated() && req.user.admin === true) {
         return next();
     } else {
-        return res.redirect('/login');
+        return res.redirect('/admin/login');
     }
 };

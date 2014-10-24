@@ -16,17 +16,18 @@ module.exports = {
     login: function(req, res) {
 
         if (!req.xhr) {
+            if (req.isAuthenticated()) {
+                return res.redirect('/');
+            }
             res.view();
 
         } else {
             passport.authenticate('local', function(err, user, info) {
                 if ((err) || (!user)) {
-                    res.redirect('/admin/login');
-                    return;
+                    return res.json(false);
                 }
                 req.logIn(user, function(err) {
-                    if (err) res.redirect('/admin/login');
-                    return res.redirect('/admin');
+                    return res.json(err ? false : true);
                 });
             })(req, res);
         }
@@ -40,21 +41,34 @@ module.exports = {
      */
     logout: function (req, res) {
         req.logout();
-        res.redirect('/admin/login');
+        res.redirect('/login');
     },
 
     /**
-     * User manager
+     * Sign up action
      *
      * @param req
      * @param res
      */
-    index: function(req, res) {
+    signup: function(req, res) {
 
-        User.find({}, function(err, list) {
-            res.view({
-                users: list
+        if (!req.xhr) {
+            res.view();
+
+        } else {
+            var data = req.allParams();
+
+            User.create(data, function(err, newUser) {
+                if (err) {
+                    res.json(false);
+                    return;
+                }
+                req.logIn(newUser, function(err) {
+                    return res.json(err ? false : true);
+                });
             });
-        });
-    }
+        }
+    },
+
+    _config: {}
 };

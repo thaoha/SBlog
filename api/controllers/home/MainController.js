@@ -10,6 +10,12 @@ module.exports = {
         res.view();
     },
 
+    /**
+     * View time line
+     *
+     * @param req
+     * @param res
+     */
     timeline: function (req, res) {
         var username = req.param('username') || '';
 
@@ -26,11 +32,11 @@ module.exports = {
             },
             function getPost(admin, blog, next) {
                 Post.find({blog: blog, published: true}, function(err, posts) {
-                    next(err, admin, blog);
+                    next(err, admin, blog, posts);
                 });
             }
         ], function(err, admin, blog, posts) {
-            if (err) {
+            if (err || !blog) {
                 res.notFound();
             } else {
                 res.view({

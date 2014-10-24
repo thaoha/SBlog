@@ -3,7 +3,7 @@
 {% block styles %}
     {% parent %}
     <link href="/home/styles/components.css" rel="stylesheet" type="text/css"/>
-    <link href="/home/styles/coming-soon.css" rel="stylesheet" type="text/css"/>
+    <link href="/home/styles/comingSoon.css" rel="stylesheet" type="text/css"/>
 {% endblock %}
 
 {% block homeContent %}
@@ -75,7 +75,7 @@
     {% parent %}
     <script src="/plugins/countdown/jquery.countdown.min.js" type="text/javascript"></script>
     <script src="/plugins/backstretch/jquery.backstretch.min.js" type="text/javascript"></script>
-    <script src="/home/js/coming-soon.js" type="text/javascript"></script>
+    <script src="/home/js/comingSoon.js" type="text/javascript"></script>
     <script>
         jQuery(document).ready(function() {
             ComingSoon.init();
