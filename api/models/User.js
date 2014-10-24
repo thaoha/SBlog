@@ -2,6 +2,9 @@ var bcrypt = require('bcryptjs');
 
 module.exports = {
     attributes: {
+        avatar: {
+            type: 'string'
+        },
         name: {
             type: 'string',
             required: true,

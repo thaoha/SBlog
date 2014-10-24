@@ -30,7 +30,8 @@ module.exports.policies = {
   *                             Admin area                                   *
   ***************************************************************************/
 
-  'admin/MainController': {
-    '*': 'isAdmin'
-  }
+  'admin/MainController': {'*': 'isAdmin'},
+  'admin/UserController': {'*': 'isAdmin'},
+  'admin/PostController': {'*': 'isAdmin'},
+  'admin/SettingController': {'*': 'isAdmin'}
 };

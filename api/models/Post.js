@@ -5,6 +5,9 @@
 
 module.exports = {
     attributes: {
+        avatar: {
+            type: 'string'
+        },
         title: {
             type: 'string',
             required: true,

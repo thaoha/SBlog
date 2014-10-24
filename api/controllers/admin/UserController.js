@@ -56,5 +56,41 @@ module.exports = {
                 users: list
             });
         });
+    },
+
+    /**
+     * Save user
+     *
+     * @param req
+     * @param res
+     */
+    save: function(req, res) {
+
+    },
+
+    /**
+     * Delete user
+     *
+     * @param req
+     * @param res
+     */
+    delete: function(req, res) {
+
+        User.destroy(req.param('id'), function(err) {
+            res.json(err ? false : true);
+        });
+    },
+
+    /**
+     * View user
+     *
+     * @param req
+     * @param res
+     */
+    view: function(req, res) {
+
+        User.findOne(req.param('id'), function(err, user) {
+            res.view({user: user});
+        });
     }
 };

@@ -41,6 +41,9 @@ module.exports.routes = {
   'get /admin': { controller: 'admin/MainController', action: 'index' },
 
   '/admin/login': { controller: 'admin/UserController', action: 'login' },
-  '/admin/logout': { controller: 'admin/UserController', action: 'logout' }
+  '/admin/logout': { controller: 'admin/UserController', action: 'logout' },
+
+  '/admin/user-view/:id': { controller: 'admin/UserController', action: 'view' },
+  '/admin/user-delete/:id': { controller: 'admin/UserController', action: 'delete' }
 
 };
