@@ -15,7 +15,7 @@ module.exports = {
      */
     login: function(req, res) {
 
-        if (!req.xhr) {
+        if (req.method === 'GET') {
             res.view();
 
         } else {
@@ -51,21 +51,58 @@ module.exports = {
      */
     index: function(req, res) {
 
-        User.find({}, function(err, list) {
-            res.view({
+        var view = req.xhr ? 'list' : 'index';
+        var query = User.find();
+
+        if (typeof req.param('limit') === 'number') {
+            query.limit(req.param('limit'));
+        }
+
+        if (typeof req.param('active') !== 'undefined' && req.param('active') != 'all') {
+            query.where({active: req.param('active') == '1' ? true : false});
+        }
+
+        if (typeof req.param('keyword') === 'string' && req.param('keyword') != '') {
+            query.where({or: [
+                {name: {like: '%' + req.param('keyword') + '%'}},
+                {email: {like: '%' + req.param('keyword') + '%'}}
+            ]});
+        }
+
+        query.exec(function(err, list) {
+            res.view('admin/user/' + view, {
                 users: list
             });
         });
     },
 
     /**
-     * Save user
+     * Create or edit user
      *
      * @param req
      * @param res
      */
-    save: function(req, res) {
+    form: function(req, res) {
 
+        if (!req.xhr) {
+
+            User.findOne(req.param('id'), function(err, user) {
+                res.view({
+                    user: user
+                });
+            });
+
+        } else {
+            var data = req.param('user');
+            data.active = data.active === 'on' ? true : false;
+
+            User.update(req.param('id'), data).exec(function(err, updated) {
+                res.json({
+                    status: err ? 'warning' : 'success',
+                    message: err ? 'Something went wrong' : 'Successfully'
+                });
+            });
+        }
     },
 
     /**

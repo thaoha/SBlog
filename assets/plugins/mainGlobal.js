@@ -28,16 +28,14 @@ var MainGlobal = {
         this.ajaxForm($('form.ajax-form'));
     },
 
-    ajaxForm: function(form, before, success) {
+    ajaxForm: function(form) {
         form.ajaxForm({
             beforeSubmit: function() {
                 $('button[type=submit]', form).button('loading');
             },
             success: function(data) {
                 $('button[type=submit]', form).button('reset');
-                if (typeof success !== 'undefined') {
-                    success(data);
-                }
+                $('.alert', form).attr('class', 'alert alert-' + data.status).text(data.message);
             }
         });
     },
