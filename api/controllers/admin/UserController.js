@@ -51,7 +51,7 @@ module.exports = {
      */
     index: function(req, res) {
 
-        var view = req.xhr ? 'list' : 'index';
+        var view = req.xhr ? '_list' : 'index';
         var query = User.find();
 
         if (typeof req.param('limit') === 'number') {
@@ -85,18 +85,46 @@ module.exports = {
     form: function(req, res) {
 
         if (!req.xhr) {
-
-            User.findOne(req.param('id'), function(err, user) {
+            User.findOne({id: req.param('id')}).populate('avatar').exec(function(err, user) {
                 res.view({
                     user: user
                 });
             });
 
         } else {
-            var data = req.param('user');
-            data.active = data.active === 'on' ? true : false;
+            async.waterfall([
+                //handle user data
+                function(next) {
+                    var data = {
+                        name: req.param('name'),
+                        email: req.param('email'),
+                        password: req.param('password'),
+                        active: req.param('active') === 'on' ? true : false
+                    };
 
-            User.update(req.param('id'), data).exec(function(err, updated) {
+                    FileService.upload(req, {field: 'avatar', dirname: req.user.id}, function(err, newFile) {
+                        data.avatar = newFile || null;
+                        next(err, data);
+                    });
+                },
+
+                // save to database
+                function(data, next) {
+                    // update user info
+                    if (typeof req.param('id') !== 'undefined') {
+                        User.update(req.param('id'), data).exec(function(err, updated) {
+                            next(err, updated);
+                        });
+
+                    // create new user
+                    } else {
+                        User.create(data, function(err, newUser) {
+                            next(err, newUser);
+                        });
+                    }
+                }
+
+            ], function(err, result) {
                 res.json({
                     status: err ? 'warning' : 'success',
                     message: err ? 'Something went wrong' : 'Successfully'
@@ -126,7 +154,7 @@ module.exports = {
      */
     view: function(req, res) {
 
-        User.findOne(req.param('id'), function(err, user) {
+        User.findOne({id: req.param('id')}, function(err, user) {
             res.view({user: user});
         });
     }

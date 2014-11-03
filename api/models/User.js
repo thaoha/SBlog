@@ -3,7 +3,7 @@ var bcrypt = require('bcryptjs');
 module.exports = {
     attributes: {
         avatar: {
-            type: 'string'
+            model: 'file'
         },
         name: {
             type: 'string',
@@ -18,8 +18,7 @@ module.exports = {
             email: true
         },
         password: {
-            type: 'string',
-            required: true
+            type: 'string'
         },
         active: {
             type: 'boolean',
@@ -62,5 +61,25 @@ module.exports = {
                 });
             });
         });
+    },
+
+    beforeUpdate: function(user, next) {
+
+        if (user.password != '') {
+            bcrypt.genSalt(10, function(err, salt) {
+                bcrypt.hash(user.password, salt, function(err, hash) {
+                    if (err) {
+                        next(err);
+                    } else {
+                        user.password = hash;
+                        next(null, user);
+                    }
+                });
+            });
+
+        } else {
+            delete user.password;
+            next(null, user);
+        }
     }
 };
