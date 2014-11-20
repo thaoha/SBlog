@@ -103,8 +103,10 @@ module.exports = {
                     };
 
                     FileService.upload(req, {field: 'avatar', dirname: req.user.id}, function(err, newFile) {
-                        data.avatar = newFile || null;
-                        next(err, data);
+                        // if upload avatar error still update another information
+                        if (err) sails.log.error(err);
+                        else data.avatar = newFile;
+                        next(null, data);
                     });
                 },
 
@@ -125,6 +127,8 @@ module.exports = {
                 }
 
             ], function(err, result) {
+                if (err) sails.log.error(err);
+
                 res.json({
                     status: err ? 'warning' : 'success',
                     message: err ? 'Something went wrong' : 'Successfully'

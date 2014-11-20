@@ -3,6 +3,7 @@
 {% block styles %}
     {% parent %}
     <link rel="stylesheet" href="/plugins/bootstrap-fileinput/css/fileinput.min.css">
+    <link rel="stylesheet" href="/admin/styles/user-form.css">
 {% endblock %}
 
 {% block adminUserContent %}
@@ -12,7 +13,17 @@
             <form class="ajax-form user-form" role="form" method="POST">
                 <div class="form-group">
                     <label for="inputAvatar">Avatar</label><br/>
-                    <!--<img src="{{ user.avatar.path | default('') }}" style="height: 160px; width: auto;">-->
+                    {% if user.avatar | default(false) %}
+                        <div class="file-preview" id="avatar-preview-original">
+                            <div class="file-preview-thumbnails">
+                                <div class="file-preview-frame">
+                                    <img src="{{ user.avatar.path | default('') }}">
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>   <div class="file-preview-status text-center text-success"></div>
+                            <div class="kv-fileinput-error file-error-message" style="display: none;"></div>
+                        </div>
+                    {% endif %}
                     <input id="inputAvatar" type="file" name="avatar" class="file" accept="image/*">
                 </div>
                 <div class="form-group">

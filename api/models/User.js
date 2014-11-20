@@ -65,7 +65,7 @@ module.exports = {
 
     beforeUpdate: function(user, next) {
 
-        if (user.password != '') {
+        if (typeof user.password !== 'undefined' && user.password) {
             bcrypt.genSalt(10, function(err, salt) {
                 bcrypt.hash(user.password, salt, function(err, hash) {
                     if (err) {

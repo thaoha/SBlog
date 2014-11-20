@@ -9,7 +9,7 @@ var AdminUser = {
 
         var form = $('form.user-form');
         if (form.length) {
-            this.form(form);
+            this.form();
         }
     },
 
@@ -46,8 +46,8 @@ var AdminUser = {
         });
     },
 
-    form: function(form) {
-        $('#inputAvatar', form).fileinput({
+    form: function() {
+        $('#inputAvatar').fileinput({
             showUpload: false,
             allowedFileTypes: ['image'],
             showCaption: false,
@@ -59,6 +59,10 @@ var AdminUser = {
             removeClass: "btn btn-danger",
             removeLabel: "Delete",
             removeIcon: '<i class="glyphicon glyphicon-trash"></i>'
+        });
+
+        $('#inputAvatar').on('fileloaded', function(event, file, previewId) {
+            $('#avatar-preview-original').hide();
         });
     }
 };

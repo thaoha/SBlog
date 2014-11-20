@@ -24,12 +24,16 @@ module.exports = {
 
         }, function(err, uploadedFiles) {
             if (!err) {
-                File.create({
-                    path: '/uploads/' + opts.dirname + '/' + uploadedFiles[0].fd.split('\\').pop(),
-                    root: opts.root
-                }, function(err, newFile) {
-                    next(err, newFile);
-                });
+                try {
+                    File.create({
+                        path: '/uploads/' + opts.dirname + '/' + uploadedFiles[0].fd.split('\\').pop(),
+                        root: opts.root
+                    }, function(err, newFile) {
+                        next(err, newFile);
+                    });
+                } catch(ex) {
+                    next(ex);
+                }
             } else {
                 next(err);
             }

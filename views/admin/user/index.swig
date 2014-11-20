@@ -58,5 +58,5 @@
 
 {% block scripts %}
     {% parent %}
-    <script src="/admin/js/adminUser.js" type="text/javascript"></script>
+    <script src="/admin/js/user.js" type="text/javascript"></script>
 {% endblock %}

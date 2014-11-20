@@ -16,5 +16,5 @@
 
 {% block scripts %}
     {% parent %}
-    <script src="/admin/js/adminGlobal.js" type="text/javascript"></script>
+    <script src="/admin/js/global.js" type="text/javascript"></script>
 {% endblock %}

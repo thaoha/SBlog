@@ -12,5 +12,25 @@ module.exports = {
                 posts: list
             });
         });
+    },
+
+    /**
+     * Create or edit post
+     *
+     * @param req
+     * @param res
+     */
+    form: function(req, res) {
+
+        if (!req.xhr) {
+            Post.findOne({id: req.param('id')}).exec(function(err, post) {
+                res.view({
+                    post: post
+                });
+            });
+
+        } else {
+            res.json(false);
+        }
     }
 };
