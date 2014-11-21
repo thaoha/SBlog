@@ -16,8 +16,11 @@ module.exports = {
     login: function(req, res) {
 
         if (req.method === 'GET') {
-            res.view();
-
+            if (req.isAuthenticated() && req.user.admin === true) {
+                return res.redirect('/admin');
+            } else {
+                res.view();
+            }
         } else {
             passport.authenticate('local', function(err, user, info) {
                 if ((err) || (!user)) {
@@ -52,7 +55,7 @@ module.exports = {
     index: function(req, res) {
 
         var view = req.xhr ? '_list' : 'index';
-        var query = User.find();
+        var query = User.find({admin: false});
 
         if (typeof req.param('limit') === 'number') {
             query.limit(req.param('limit'));
@@ -121,7 +124,13 @@ module.exports = {
                     // create new user
                     } else {
                         User.create(data, function(err, newUser) {
-                            next(err, newUser);
+                            if (newUser) {
+                                Blog.create({title: newUser.name, admin: newUser}, function(err, blog) {
+                                    next(err, newUser);
+                                });
+                            } else {
+                                next(err);
+                            }
                         });
                     }
                 }

@@ -23,7 +23,7 @@
                 At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi vehicula sem ut volutpat. Ut non libero magna fusce condimentum eleifend enim a feugiat.
             </p>
             <br>
-            <a class="btn blue" href="/timeline">View demo</a>
+            <a class="btn blue" href="/tl/ga_con">View demo</a>
 
             <ul class="social-icons margin-top-20">
                 <li>

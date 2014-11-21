@@ -52,7 +52,7 @@ module.exports = {
      */
     signup: function(req, res) {
 
-        if (!req.xhr) {
+        if (req.method != 'POST') {
             res.view();
 
         } else {
@@ -60,12 +60,14 @@ module.exports = {
 
             User.create(data, function(err, newUser) {
                 if (err) {
-                    res.json(false);
-                    return;
+                    res.view({message: 'Something went wrong'});
+                } else {
+                    Blog.create({title: newUser.name, admin: newUser}, function(error, blog) {
+                        req.logIn(newUser, function(err) {
+                            res.redirect('/tl/' + newUser.alias);
+                        });
+                    });
                 }
-                req.logIn(newUser, function(err) {
-                    return res.json(err ? false : true);
-                });
             });
         }
     },

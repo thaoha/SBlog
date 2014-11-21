@@ -8,9 +8,8 @@ module.exports = {
             type: 'string',
             required: true
         },
-        root: {
-            type: 'string',
-            defaultsTo: 'public'
+        user: {
+            model: 'user'
         }
     }
 };

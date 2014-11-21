@@ -22,28 +22,30 @@
 
 module.exports.routes = {
 
-  /***************************************************************************
-  *                              Home Area                                   *
-  ***************************************************************************/
+    /***************************************************************************
+    *                              Home Area                                   *
+    ***************************************************************************/
 
-  '/': { controller: 'home/MainController', action: 'index' },
+    '/': { controller: 'home/MainController', action: 'index' },
 
-  '/login': { controller: 'home/UserController', action: 'login' },
-  '/logout': { controller: 'home/UserController', action: 'logout'},
-  '/signup': { controller: 'home/UserController', action: 'signup'},
+    '/login': { controller: 'home/UserController', action: 'login' },
+    '/logout': { controller: 'home/UserController', action: 'logout'},
+    '/signup': { controller: 'home/UserController', action: 'signup'},
 
-  'get /tl/:username': { controller: 'home/MainController', action: 'timeline' },
+    'get /tl/:alias/:page': { controller: 'home/MainController', action: 'page' },
+    'get /tl/:alias': { controller: 'home/MainController', action: 'timeline' },
+    'get /uploads/*': {controller: 'home/FileController', action: 'get'},
 
-  /***************************************************************************
-  *                             Admin area                                   *
-  ***************************************************************************/
+    /***************************************************************************
+    *                             Admin area                                   *
+    ***************************************************************************/
 
-  'get /admin': { controller: 'admin/MainController', action: 'index' },
+    'get /admin': { controller: 'admin/MainController', action: 'index' },
 
-  '/admin/login': { controller: 'admin/UserController', action: 'login' },
-  '/admin/logout': { controller: 'admin/UserController', action: 'logout' },
+    '/admin/login': { controller: 'admin/UserController', action: 'login' },
+    '/admin/logout': { controller: 'admin/UserController', action: 'logout' },
 
-  '/admin/user-view/:id': { controller: 'admin/UserController', action: 'view' },
-  '/admin/user-delete/:id': { controller: 'admin/UserController', action: 'delete' }
+    '/admin/user-view/:id': { controller: 'admin/UserController', action: 'view' },
+    '/admin/user-delete/:id': { controller: 'admin/UserController', action: 'delete' }
 
 };

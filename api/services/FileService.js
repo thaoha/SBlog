@@ -13,13 +13,12 @@ module.exports = {
     upload: function(req, opts, next) {
 
         opts = {
-            root: opts.root || 'public',
             dirname: opts.dirname || 'other',
             field: opts.field || 'file'
         };
 
         req.file(opts.field).upload({
-            dirname: '../' + opts.root + '/uploads/' + opts.dirname,
+            dirname: './' + opts.dirname,
             saveAs: opts.filename
 
         }, function(err, uploadedFiles) {
@@ -27,7 +26,7 @@ module.exports = {
                 try {
                     File.create({
                         path: '/uploads/' + opts.dirname + '/' + uploadedFiles[0].fd.split('\\').pop(),
-                        root: opts.root
+                        user: req.user
                     }, function(err, newFile) {
                         next(err, newFile);
                     });

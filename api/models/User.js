@@ -11,6 +11,9 @@ module.exports = {
             minLength: 3,
             maxLength: 20
         },
+        alias: {
+            type: 'string'
+        },
         email: {
             type: 'string',
             required: true,
@@ -45,21 +48,33 @@ module.exports = {
     },
 
     beforeCreate: function(user, next) {
-        // check exist email
-        User.findOne({email: user.email}, function(err, data) {
-            if (err) return next(err);
-            if (data) return next(new Error('Email was already exist'));
 
-            bcrypt.genSalt(10, function(err, salt) {
-                bcrypt.hash(user.password, salt, function(err, hash) {
-                    if (err) {
-                        next(err);
-                    } else {
-                        user.password = hash;
-                        next(null, user);
-                    }
+        async.waterfall([
+            function createAlias(fn) {
+                user.alias = user.name.replace(" ", "_").toLowerCase();
+                fn(null);
+            },
+            function checkEmail(fn) {
+                User.findOne({email: user.email}, function(err, data) {
+                    if (err) fn(err);
+                    if (data) fn(new Error('Email was already exist'));
+                    fn(null);
                 });
-            });
+            },
+            function hashPassword(fn) {
+                bcrypt.genSalt(10, function(err, salt) {
+                    bcrypt.hash(user.password, salt, function(err, hash) {
+                        if (err) {
+                            fn(err);
+                        } else {
+                            user.password = hash;
+                            fn(null);
+                        }
+                    });
+                });
+            }
+        ], function(err, result) {
+            next(err, user);
         });
     },
 
