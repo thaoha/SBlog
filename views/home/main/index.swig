@@ -18,12 +18,17 @@
     </div>
     <div class="row">
         <div class="col-md-6 coming-soon-content">
-            <h1>ThaoHa Blog :D</h1>
+            <h1>Welcome, {{ user.name | default('guest') }} :D</h1>
             <p>
                 At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi vehicula sem ut volutpat. Ut non libero magna fusce condimentum eleifend enim a feugiat.
             </p>
             <br>
-            <a class="btn blue" href="/tl/ga_con">View demo</a>
+            {% if user | default(false) %}
+            <a class="btn blue" href="/tl/{{ user.alias }}">View blog</a>
+            <a class="btn white" href="/logout">Log out</a>
+            {% else %}
+                <a class="btn blue" href="/login">Log in</a>
+            {% endif %}
 
             <ul class="social-icons margin-top-20">
                 <li>

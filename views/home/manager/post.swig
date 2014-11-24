@@ -10,29 +10,26 @@
         
 {% block homeContent %}
 
-<div class="page-container">
+{% include '../elements/_navbar.swig' %}
+
+<div class="container">
 
 <!-- BEGIN CONTENT -->
-<div class="page-content-wrapper">
 <div class="page-content">
-
-<!-- BEGIN PAGE CONTENT-->
-<div class="row-fluid">
-<div class="col-md-3">
-    {% include './timeline/_mini_profile.swig' %}
-    {% include './timeline/_about_me.swig' %}
-</div>
-<div class="col-md-9">
-    <div class="row-fluid header">
-        <div class="alert alert-info" role="alert">Just demo. Don't click lung tung nhé :v</div>
+    <!-- BEGIN PAGE CONTENT-->
+    <div class="row">
+        <div class="col-md-3">
+            {% include './_menus.swig' %}
+        </div>
+        <div class="col-md-9">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    {% include './_post_form.swig' %}
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="main-content">
-        {% include './timeline/_post_form.swig' %}
-    </div>
-</div>
-</div>
-<!-- END PAGE CONTENT-->
-</div>
+    <!-- END PAGE CONTENT-->
 </div>
 <!-- END CONTENT -->
 
@@ -40,14 +37,16 @@
 
 <!-- BEGIN FOOTER -->
 <div class="row-fluid">
-    <div class="col-md-12">
-        <div class="page-footer-inner">
-            2014 &copy; ThaoHa.
-        </div>
-        <div class="page-footer-tools">
-            <span class="go-top">
-                <i class="fa fa-angle-up"></i>
-            </span>
+    <div class="container">
+        <div class="col-md-12">
+            <div class="page-footer-inner">
+                2014 &copy; ThaoHa.
+            </div>
+            <div class="page-footer-tools">
+                <span class="go-top">
+                    <i class="fa fa-angle-up"></i>
+                </span>
+            </div>
         </div>
     </div>
 </div>

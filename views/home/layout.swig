@@ -6,7 +6,7 @@
 
 {% block body %}
 
-        {% block homeContent %}{% endblock %}
+    {% block homeContent %}{% endblock %}
 
 {% endblock %}
 

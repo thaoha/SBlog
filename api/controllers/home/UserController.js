@@ -15,7 +15,7 @@ module.exports = {
      */
     login: function(req, res) {
 
-        if (!req.xhr) {
+        if (req.method != 'POST') {
             if (req.isAuthenticated()) {
                 return res.redirect('/');
             }
@@ -23,12 +23,13 @@ module.exports = {
 
         } else {
             passport.authenticate('local', function(err, user, info) {
-                if ((err) || (!user)) {
-                    return res.json(false);
+                if (err || !user) {
+                    res.view({message: 'Something went wrong'});
+                } else {
+                    req.logIn(user, function(err) {
+                        res.redirect('/');
+                    });
                 }
-                req.logIn(user, function(err) {
-                    return res.json(err ? false : true);
-                });
             })(req, res);
         }
     },
@@ -41,7 +42,7 @@ module.exports = {
      */
     logout: function (req, res) {
         req.logout();
-        res.redirect('/login');
+        res.redirect('/');
     },
 
     /**
@@ -64,7 +65,7 @@ module.exports = {
                 } else {
                     Blog.create({title: newUser.name, admin: newUser}, function(error, blog) {
                         req.logIn(newUser, function(err) {
-                            res.redirect('/tl/' + newUser.alias);
+                            res.redirect('/');
                         });
                     });
                 }
