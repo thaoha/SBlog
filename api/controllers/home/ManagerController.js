@@ -26,7 +26,9 @@ module.exports = {
             });
 
         } else {
-            res.view({
+            var data = req.allParams();
+            console.log(data);
+            res.json({
                 message: 'Success'
             });
         }

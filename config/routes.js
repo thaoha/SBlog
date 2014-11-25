@@ -33,10 +33,11 @@ module.exports.routes = {
     '/signup': { controller: 'home/UserController', action: 'signup'},
 
     'get /tl/:alias/manager': { controller: 'home/ManagerController', action: 'index' },
-    'get /tl/:alias/post-manager': { controller: 'home/ManagerController', action: 'post' },
+    '/tl/:alias/post-manager': { controller: 'home/ManagerController', action: 'post' },
     'get /tl/:alias/member-manager': { controller: 'home/ManagerController', action: 'member' },
     'get /tl/:alias/setting-manager': { controller: 'home/ManagerController', action: 'setting' },
     'get /tl/:alias': { controller: 'home/TimelineController', action: 'index' },
+    'get /tl/view/:slug': { controller: 'home/TimelineController', action: 'view' },
     'get /uploads/*': {controller: 'home/FileController', action: 'get'},
 
     /***************************************************************************

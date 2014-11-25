@@ -43,5 +43,36 @@ module.exports = {
                 });
             }
         });
+    },
+
+    /**
+     * View post
+     *
+     * @param req
+     * @param res
+     */
+    view: function(req, res) {
+
+        var slug = req.param('slug');
+
+        async.waterfall([
+            function getPost(next) {
+                Post.findOne({slug: slug, published: true}).populate('user').exec(function(err, post) {
+                    next(err, post);
+                });
+            },
+            function getComments(post, next) {
+                var postId = post == 'undefined' ? null : post.id;
+                Comment.find({post: postId}).populate('user').exec(function(err, comments) {
+                    next(err, post, comments);
+                });
+            }
+        ], function(err, post, comments) {
+            res.view({
+                post: post,
+                comments: comments,
+                user: req.user
+            });
+        });
     }
 };

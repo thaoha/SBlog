@@ -36,7 +36,7 @@ var AdminPostForm = {
             removeIcon: '<i class="glyphicon glyphicon-trash"></i>'
         });
 
-        $('#inputAvatar', form).on('fileloaded', function(event, file, previewId) {
+        $('#inputAvatar').on('fileloaded', function(event, file, previewId) {
 
         });
     }
